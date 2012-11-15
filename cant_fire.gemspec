@@ -16,4 +16,9 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+
+  gem.add_runtime_dependency 'tinder'
+  # gem.add_runtime_dependency 'notify'
+  gem.add_runtime_dependency 'terminal-notifier'
+  gem.add_runtime_dependency 'term-ansicolor'
 end

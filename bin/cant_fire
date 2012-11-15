@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'cant_fire'
+
+begin
+  CantFire.check_config!
+  CantFire.start!
+rescue CantFire::ConfigError => e
+  $stderr.puts e.message
+end
+
