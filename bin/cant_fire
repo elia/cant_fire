@@ -14,6 +14,7 @@ rescue Object
   else
     puts "ERROR !!!!!!!!!!!"
     puts $!
+    sleep 2
     retry
   end
 end
