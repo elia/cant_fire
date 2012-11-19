@@ -81,13 +81,14 @@ module CantFire
   end
 
   def notify message, options
+    require 'shellwords'
+    fork { exec "say #{options[:title].shellescape}" }
+    require 'terminal-notifier'
     # TerminalNotifier.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
     # TerminalNotifier.notify('Hello World', :activate => 'com.apple.Safari')
     # TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
     # TerminalNotifier.notify('Hello World', :execute => 'say "OMG"')
     # TerminalNotifier.notify('Hello World', :group => Process.pid)
-    TerminalNotifier.notify(message, options.merge(
-      group: Process.pid
-    ))
+    TerminalNotifier.notify(message, options)
   end
 end
