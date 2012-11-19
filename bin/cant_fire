@@ -1,11 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'cant_fire'
-
 begin
+  require 'cant_fire'
   CantFire.check_config!
   CantFire.start!
 rescue CantFire::ConfigError => e
   $stderr.puts e.message
+rescue Object
+  if Interrupt === $!
+    puts
+    puts 'Exiting... '
+    exit
+  else
+    puts "ERROR !!!!!!!!!!!"
+    puts $!
+    retry
+  end
 end
 
