@@ -35,7 +35,7 @@ module CantFire
                " #{message.body}"
 
           case message.body
-          when /(elia|\ball\b)/i
+          when /(#{config.username}|\ball\b)/i
             url = "https://#{config.subdomain}.campfirenow.com/room/#{room.id}#message_#{message.id}"
             notify message.body,
                    title: "#{user.name} is calling you!",
