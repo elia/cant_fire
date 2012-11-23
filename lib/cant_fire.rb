@@ -87,6 +87,7 @@ module CantFire
       else
         $interrupted = true
         puts 'Hit CTRL+C to exit'
+        sleep 0.5
         CantFire.new_message { $interrupted = false }
         retry
       end
