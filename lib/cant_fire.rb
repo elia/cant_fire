@@ -14,8 +14,7 @@ module CantFire
       m.puts "#   users: #{room.users.map(&:name)}"
       m.puts "#{message.user.name}: " if message
     end
-    puts [ENV['EDITOR'], '-l3:-1', file].join(' ')
-    system [ENV['EDITOR'], '-l3:-1', file].join(' ')
+    system [ENV['EDITOR'], file].join(' ')
     message = File.read(file).lines.select { |l| l !~ /^\s*#/ }.join("\n")
     room.speak message unless message.strip.empty?
     block.call
