@@ -55,13 +55,11 @@ module CantFire
           user_colors[:all] = colors.dup if user_colors[:all].empty?
           user_colors[user.name] ||= user_colors[:all].shift
           user_color = user_colors[user.name]
-
-          puts "[#{room.name}] ".send(room_color) +
-               "**#{user.name}**:".send(user_color) +
-               " #{message.body}"
+          message_body = message.body
 
           case message.body
           when /(elia|\ball\b)/i
+            message_body = message_body.yellow
             url = "https://#{config.subdomain}.campfirenow.com/room/#{room.id}#message_#{message.id}"
             notify message.body,
                    title: "#{user.name} is calling you!",
@@ -71,6 +69,10 @@ module CantFire
             # Notify.notify summary, message.body
             # Notify.notify "New message on room #{room.name.inspect}: \n#{message.body}"
           end
+          puts "[#{room.name}] ".send(room_color) +
+               "**#{user.name}**:".send(user_color) +
+               " #{message_body}"
+
         end
       end
     end.compact
