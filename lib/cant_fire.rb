@@ -4,19 +4,27 @@ module CantFire
   extend self
 
   def new_message &block
-    room    = $room || @rooms.first
+    rooms   = @rooms
+    room    = $room || rooms.first
     message = $message
 
     file = File.expand_path('~/.cant_fire_message')
 
     File.open(file, 'w') do |m|
-      m.puts "# #{room.id}: #{room.name.inspect}"
-      m.puts "#   users: #{room.users.map(&:name)}"
-      m.puts "#{message.user.name}: " if message
+      m.puts message ? "#{message.user.name}: " : ''
+      m.puts
+      m.puts "# room: #{room.name}"
+      m.puts "#"
+      rooms.each do |r|
+        users   = @users[r.name] || []
+        m.puts "# #{(r.name+':').ljust 20} #{users.map(&:name).map(&:inspect).join(', ')}"
+      end
     end
     system [ENV['EDITOR'], file].join(' ')
-    message = File.read(file).lines.select { |l| l !~ /^\s*#/ }.join("\n")
-    room.speak message unless message.strip.empty?
+    full_message = File.read(file)
+    message = full_message.lines.select { |l| l !~ /^\s*#/ }.join('')
+    room = rooms.find{|r| r.name == $1} if full_message =~ /^# room: (.*)$/
+    room.speak message.strip unless message.strip.empty?
     block.call
   end
 
@@ -36,8 +44,10 @@ module CantFire
     room_colors = {all: colors.dup}
     user_colors = {all: colors.dup}
     @rooms = campfire.rooms
+    @users = {}
     @rooms_threads = @rooms.map do |room|
       next if config.skip_rooms.include? room.name
+      @users[room.name] = room.users
       Thread.new do
         room_colors[:all] = colors.dup if room_colors[:all].empty?
         room_colors[room.name] ||= room_colors[:all].shift
