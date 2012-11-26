@@ -1,24 +1,31 @@
 # CantFire
 
-TODO: Write a gem description
+Use the terminal and your favorite editor to chat in CampFire
+
+**NOTICE:** for now it's OSX ML only
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'cant_fire'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install as a gem:
 
     $ gem install cant_fire
 
+Setup credentials in `~/.cant_fire`
+
+```yaml
+subdomain: your_campfire_subdomain
+token: o487yfi8yeig8fy75weoh8gyoe8rhy5goer87ygehr587ygo8e
+skip_rooms:
+  - 'Dumbs'
+  - 'Boring'
+```
+
+
+
 ## Usage
 
-TODO: Write usage instructions here
+Get notified via the notification center, hit `CTRL+C` to open your configured `$EDITOR` to write the message
+
 
 ## Contributing
 
