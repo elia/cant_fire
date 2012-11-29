@@ -15,6 +15,8 @@ Setup credentials in `~/.cant_fire`
 ```yaml
 subdomain: your_campfire_subdomain
 token: o487yfi8yeig8fy75weoh8gyoe8rhy5goer87ygehr587ygo8e
+username: name
+terminal_notifier: true
 skip_rooms:
   - 'Dumbs'
   - 'Boring'
