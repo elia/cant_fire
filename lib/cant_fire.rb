@@ -71,10 +71,10 @@ module CantFire
             message_body = message_body.yellow
             url = "https://#{config.subdomain}.campfirenow.com/room/#{room.id}#message_#{message.id}"
             notify message.body,
-                   title: "#{user.name} is calling you!",
+                   title:    "#{user.name} is calling you!",
                    subtitle: room.name,
-                   open: url,
-                   group: "Campfire - #{room.name}"
+                   open:     url,
+                   group:    "Campfire - #{room.name}"
             # Notify.notify summary, message.body
             # Notify.notify "New message on room #{room.name.inspect}: \n#{message.body}"
           end
