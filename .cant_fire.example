@@ -1,0 +1,6 @@
+terminal_notifier: true
+username: elia
+subdomain: my_company
+token: 5tfyier8yto8e7yghiery58r5785d7hiiier578yhitr78y
+skip_rooms:
+  - 'Lame Room'
