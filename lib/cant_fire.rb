@@ -30,7 +30,6 @@ module CantFire
 
 
   def start!
-    require 'terminal-notifier'
     require 'term/ansicolor'
     require 'thread'
     require 'tinder'
@@ -68,7 +67,7 @@ module CantFire
           message_body = message.body
 
           case message.body
-          when /(elia|\ball\b)/i
+          when /(#{config.username}|\ball\b)/i
             message_body = message_body.yellow
             url = "https://#{config.subdomain}.campfirenow.com/room/#{room.id}#message_#{message.id}"
             notify message.body,
@@ -140,11 +139,14 @@ module CantFire
 
   def notify message, options
     fork { exec "say #{options[:title].shellescape}" }
-    # TerminalNotifier.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
-    # TerminalNotifier.notify('Hello World', :activate => 'com.apple.Safari')
-    # TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
-    # TerminalNotifier.notify('Hello World', :execute => 'say "OMG"')
-    # TerminalNotifier.notify('Hello World', :group => Process.pid)
-    TerminalNotifier.notify(message, options)
+    if config.terminal_notifier
+      require 'terminal-notifier'
+      # TerminalNotifier.notify('Hello World', :title => 'Ruby', :subtitle => 'Programming Language')
+      # TerminalNotifier.notify('Hello World', :activate => 'com.apple.Safari')
+      # TerminalNotifier.notify('Hello World', :open => 'http://twitter.com/alloy')
+      # TerminalNotifier.notify('Hello World', :execute => 'say "OMG"')
+      # TerminalNotifier.notify('Hello World', :group => Process.pid)
+      TerminalNotifier.notify(message, options)
+    end
   end
 end
